@@ -1,4 +1,3 @@
-import java.util.Locale;
 
 public class Book extends Functionalities {
     private int id ;
