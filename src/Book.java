@@ -6,15 +6,6 @@ public class Book extends Functionalities {
     private boolean isAvailable;
     Author author = new Author();
     Book(){}
-    public Book(int id,String title,String publish_year, boolean isAvailable,String author_name,String active_year){
-        this.id = id;
-        this.title = title;
-        this.publish_year = publish_year;
-        this.isAvailable = isAvailable;
-        this.author.setAuthor_name(author_name);
-        this.author.setActive_year(active_year);
-    }
-
     public int getId() {
         return id;
     }
@@ -49,10 +40,6 @@ public class Book extends Functionalities {
 
     public Author getAuthor() {
         return author;
-    }
-
-    public void setAuthor(Author author) {
-        this.author = author;
     }
 
 

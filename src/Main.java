@@ -24,7 +24,6 @@ public class Main {
 
             switch (options_case){
                 case "1":
-                    System.out.println("Case1");
                     books[id] = new Book();
                     books[id].inputInformation(books[id],(id+1));
                     id++;
@@ -32,6 +31,7 @@ public class Main {
                 case "2":
                     System.out.println("\n========== ALL BOOKS INFORMATION ==========");
                     int count = 0;
+                    fc.header();
                     for (Book book : books) {
                         if (book == null){
                             count++;
@@ -46,6 +46,7 @@ public class Main {
                     break;
                 case "3":
                     fc.showMsg("-- AVAILABLE BOOKS INFORMATION --");
+                    fc.header();
                     fc.showAvailableBook(books);
                     break;
                 case "4":
@@ -53,24 +54,18 @@ public class Main {
                     fc.borrow_book(books,id);
                     break;
                 case "5":
-                    System.out.println("Case5");
+                    fc.showMsg("------- RETURN BOOK INFORMATION -------");
+                    fc.return_book(books,id);
                     break;
                 case "6":
                     boolean isExit = fc.exit_library();
-                    if (!isExit){
+                    if (isExit){
                         fc.showMsg("----- See you again. Goodbye!! -----");
                         return;
                     }
                 default:
                     fc.showMsg("Invalid Option. Please Try Again!!");
-
             }
-
-
         }
-
-
-
-
     }
 }

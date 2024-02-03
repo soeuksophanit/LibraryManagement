@@ -40,7 +40,7 @@ public class Library {
         lib_name = sc.nextLine();
         System.out.print("=> Enter Library's Address : ");
         lib_address = sc.nextLine();
-        if (!library_validate(lib_name, lib_address)){
+        if (library_validate(lib_name, lib_address)){
             System.out.println("\n---------------------------------------");
             System.out.println("Please enter again the correct input form!!!");
             System.out.println("Accept only character and number (A-Z,0-9) !!");
@@ -59,11 +59,10 @@ public class Library {
         System.out.println("\""+this.getLibrary_name().toUpperCase(Locale.ROOT)+"\" Library is Already Created in" +
                 " \""+this.getLibrary_address().toUpperCase(Locale.ROOT)+"\" address successfully on "+ date_and_time);
     }
-
     public boolean library_validate(String library_name,String library_address){
         if (Pattern.matches("[a-zA-Z0-9- ]+",library_name) && Pattern.matches("[a-zA-Z0-9- ]+",library_address))
-            return true;
-        return false;
+            return false;
+        return true;
     }
 
     public boolean regex_validate(String anyString,String regex){

@@ -2,15 +2,17 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Functionalities {
-    public void display(Book book){
-        String sign_available = book.isAvailable() ? "Available" : "Unavailable";
-        System.out.println(book.getId()+" "+ book.getTitle() + " "+
-                book.getPublish_year()+ " "+
-                sign_available + " "
-                + book.author.getAuthor_name()
-        + " " + book.author.getActive_year()
-        );
+
+    public void header(){
+        System.out.printf("%-5s | %-30s | %-40s | %-25s | %-25s%n",
+                "ID", "Title", "Author", "Publish Date", "Status");
     }
+    public void display(Book book) {
+        String signAvailable = book.isAvailable() ? "Available" : "Unavailable";
+        System.out.printf("%-5s | %-30s | %-40s | %-25s | %-25s%n",
+                book.getId(), book.getTitle(), (book.getAuthor().getAuthor_name()+" ( "+book.getAuthor().getActive_year()+" )"),book.getPublish_year(),signAvailable);
+    }
+
 
     public void showErrorValidate(){
         System.out.println("\n---------------------------------------");
@@ -39,7 +41,7 @@ public class Functionalities {
         active_year = sc.nextLine();
         System.out.print("=> Enter publish year : ");
         publish_year = sc.nextLine();
-        if(!lib.library_validate(title,author_name) || !lib.library_validate(active_year,publish_year)){
+        if(lib.library_validate(title, author_name) || lib.library_validate(active_year, publish_year)){
             showErrorValidate();
             inputInformation(book,id);
         }
@@ -70,23 +72,22 @@ public class Functionalities {
     public boolean exit_library(){
         System.out.print("=> Do you wnt to continue or exit ? [Y/N] : ");
         String answer = new Scanner(System.in).nextLine();
-        return answer.equalsIgnoreCase("Y") ? false : true;
+        return answer.equalsIgnoreCase("Y");
     }
 
     public void showAvailableBook(Book[] books){
         int count = 0;
-        for (Book book :books){
-            if (book == null){
-                count++;
-            }else {
-                display(book);
+        for (Book book : books){
+            if (book != null){
+                if (book.isAvailable()){
+                    display(book);
+                    count++;
+                }
             }
         }
-
-        if (count==books.length){
+        if (count==0 ){
             showMsg("----- No Books Available right now -----");
         }
-
     }
 
     public void borrow_book(Book[] books,int allID){
@@ -99,12 +100,49 @@ public class Functionalities {
             for (Book book:books){
                 if (Integer.parseInt(book_id)<=allID){
                     if (book.getId()==Integer.parseInt(book_id)){
+                        header();
                         book.display(book);
+                        if (!book.isAvailable()){
+                            showMsg("- This Book is Currently Unavailable -");
+                            break;
+                        }
                         System.out.print("=> Do you want to borrow this book ? [Y/N] : ");
                         String answer = new Scanner(System.in).nextLine();
                         if (answer.equalsIgnoreCase("Y")){
                             book.setAvailable(false);
                             showMsg("--- Book ID "+ book_id+ " was borrow successfully ---");
+                        }
+                        break;
+                    }
+                }else {
+                    showMsg("----- Book ID "+ book_id + " was not found!! ----");
+                    break;
+                }
+
+            }
+        }
+    }
+    public void return_book(Book[] books,int allID){
+        System.out.print("=> Enter book's ID to return : ");
+        String book_id = new Scanner(System.in).nextLine();
+        if (!(new Library().regex_validate(book_id,"[0-9]+"))){
+            showMsg("---- Invalid Book's ID.Try Again!! ----");
+            borrow_book(books,allID);
+        }else {
+            for (Book book:books){
+                if (Integer.parseInt(book_id)<=allID){
+                    if (book.getId()==Integer.parseInt(book_id)){
+                        header();
+                        book.display(book);
+                        if (book.isAvailable()){
+                            showMsg("- This Book is Already Available -");
+                            break;
+                        }
+                        System.out.print("=> Do you want to return this book ? [Y/N] : ");
+                        String answer = new Scanner(System.in).nextLine();
+                        if (answer.equalsIgnoreCase("Y")){
+                            book.setAvailable(true);
+                            showMsg("--- Book ID "+ book_id+ " was return successfully ---");
                         }
                         break;
                     }
