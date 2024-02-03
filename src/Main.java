@@ -45,18 +45,24 @@ public class Main {
                     }
                     break;
                 case "3":
-                    System.out.println("Case3");
+                    fc.showMsg("-- AVAILABLE BOOKS INFORMATION --");
+                    fc.showAvailableBook(books);
                     break;
                 case "4":
-                    System.out.println("Case4");
+                    fc.showMsg("------- BORROW BOOK INFORMATION -------");
+                    fc.borrow_book(books,id);
                     break;
                 case "5":
                     System.out.println("Case5");
                     break;
                 case "6":
-                    System.out.println("Case6");
-                    return;
+                    boolean isExit = fc.exit_library();
+                    if (!isExit){
+                        fc.showMsg("----- See you again. Goodbye!! -----");
+                        return;
+                    }
                 default:
+                    fc.showMsg("Invalid Option. Please Try Again!!");
 
             }
 

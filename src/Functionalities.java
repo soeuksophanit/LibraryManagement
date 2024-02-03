@@ -3,9 +3,10 @@ import java.util.Scanner;
 
 public class Functionalities {
     public void display(Book book){
+        String sign_available = book.isAvailable() ? "Available" : "Unavailable";
         System.out.println(book.getId()+" "+ book.getTitle() + " "+
                 book.getPublish_year()+ " "+
-                book.isAvailable() + " "
+                sign_available + " "
                 + book.author.getAuthor_name()
         + " " + book.author.getActive_year()
         );
@@ -64,5 +65,55 @@ public class Functionalities {
         book.author.setAuthor_name(author_name);
         book.author.setActive_year(active_year);
         book.setAvailable(true);
+    }
+
+    public boolean exit_library(){
+        System.out.print("=> Do you wnt to continue or exit ? [Y/N] : ");
+        String answer = new Scanner(System.in).nextLine();
+        return answer.equalsIgnoreCase("Y") ? false : true;
+    }
+
+    public void showAvailableBook(Book[] books){
+        int count = 0;
+        for (Book book :books){
+            if (book == null){
+                count++;
+            }else {
+                display(book);
+            }
+        }
+
+        if (count==books.length){
+            showMsg("----- No Books Available right now -----");
+        }
+
+    }
+
+    public void borrow_book(Book[] books,int allID){
+        System.out.print("=> Enter book's ID to borrow : ");
+        String book_id = new Scanner(System.in).nextLine();
+        if (!(new Library().regex_validate(book_id,"[0-9]+"))){
+            showMsg("---- Invalid Book's ID.Try Again!! ----");
+            borrow_book(books,allID);
+        }else {
+            for (Book book:books){
+                if (Integer.parseInt(book_id)<=allID){
+                    if (book.getId()==Integer.parseInt(book_id)){
+                        book.display(book);
+                        System.out.print("=> Do you want to borrow this book ? [Y/N] : ");
+                        String answer = new Scanner(System.in).nextLine();
+                        if (answer.equalsIgnoreCase("Y")){
+                            book.setAvailable(false);
+                            showMsg("--- Book ID "+ book_id+ " was borrow successfully ---");
+                        }
+                        break;
+                    }
+                }else {
+                    showMsg("----- Book ID "+ book_id + " was not found!! ----");
+                    break;
+                }
+
+            }
+        }
     }
 }
