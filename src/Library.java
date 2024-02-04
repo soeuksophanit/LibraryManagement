@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 public class Library {
 
+    public static String[] heaader_title = {"ID","Title","Author","Publish Year","Status"};
     private String library_name;
     private String library_address;
 

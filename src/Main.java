@@ -1,3 +1,7 @@
+import org.nocrala.tools.texttablefmt.BorderStyle;
+import org.nocrala.tools.texttablefmt.ShownBorders;
+import org.nocrala.tools.texttablefmt.Table;
+
 import java.util.Scanner;
 
 public class Main {
@@ -31,7 +35,7 @@ public class Main {
                 case "2":
                     System.out.println("\n========== ALL BOOKS INFORMATION ==========");
                     int count = 0;
-                    fc.header();
+                    fc.header(5,Library.heaader_title);
                     for (Book book : books) {
                         if (book == null){
                             count++;
@@ -45,26 +49,26 @@ public class Main {
                     }
                     break;
                 case "3":
-                    fc.showMsg("-- AVAILABLE BOOKS INFORMATION --");
-                    fc.header();
+                    fc.showMsg(ReuseThings.greenColorCode+"AVAILABLE BOOKS INFORMATION"+ReuseThings.resetColorGreen);
+                    fc.header(5,Library.heaader_title);
                     fc.showAvailableBook(books);
                     break;
                 case "4":
-                    fc.showMsg("------- BORROW BOOK INFORMATION -------");
+                    fc.showMsg(ReuseThings.greenColorCode+"BORROW BOOK INFORMATION"+ReuseThings.resetColorGreen);
                     fc.borrow_book(books,id);
                     break;
                 case "5":
-                    fc.showMsg("------- RETURN BOOK INFORMATION -------");
+                    fc.showMsg(ReuseThings.greenColorCode+"RETURN BOOK INFORMATION"+ReuseThings.resetColorGreen);
                     fc.return_book(books,id);
                     break;
                 case "6":
                     boolean isExit = fc.exit_library();
                     if (isExit){
-                        fc.showMsg("----- See you again. Goodbye!! -----");
+                        fc.showMsg(ReuseThings.redColorCode+"See you again. Goodbye!!"+ReuseThings.resetColorCode);
                         return;
                     }
                 default:
-                    fc.showMsg("Invalid Option. Please Try Again!!");
+                    fc.showMsg(ReuseThings.redColorCode+"Invalid Option. Please Try Again!!"+ReuseThings.resetColorCode);
             }
         }
     }
