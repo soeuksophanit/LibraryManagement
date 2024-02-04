@@ -15,7 +15,7 @@ public class Functionalities {
                 ShownBorders.SURROUND_HEADER_FOOTER_AND_COLUMNS);
 
         for (int i =0;i<numberColumns;i++)
-            t.setColumnWidth(i, 30, 70);
+            t.setColumnWidth(i, 30, 150);
 
         for (String each_header:header_title)
             t.addCell(each_header,numberStyle);
@@ -36,7 +36,7 @@ public class Functionalities {
                 ShownBorders.SURROUND_HEADER_FOOTER_AND_COLUMNS);
 
         for (int i =0;i<numberColumns;i++)
-            t.setColumnWidth(i, 30, 70);
+            t.setColumnWidth(i, 30, 150);
 
         t.addCell(String.valueOf(book.getId()),numberStyle);
         t.addCell(book.getTitle(), numberStyle);
@@ -74,7 +74,7 @@ public class Functionalities {
             inputInformation(book,id);
         }
         setInformation(book, id,title,publish_year,author_name,active_year);
-        showMsg("Book added successfully");
+        showMsg(ReuseThings.greenColorCode+"Book added successfully"+ReuseThings.resetColorGreen);
     }
 
     public void showOptions(Library library){
@@ -108,7 +108,7 @@ public class Functionalities {
             }
         }
         if (count==0 ){
-            showMsg("No Books Available right now");
+            showMsg(ReuseThings.greenColorCode+"No Books Available right now"+ReuseThings.resetColorGreen);
         }
     }
 
@@ -116,7 +116,7 @@ public class Functionalities {
         System.out.print("=> Enter book's ID to borrow : ");
         String book_id = new Scanner(System.in).nextLine();
         if (!(new Library().regex_validate(book_id,"[0-9]+"))){
-            showMsg("Invalid Book's ID.Try Again!!");
+            showMsg(ReuseThings.redColorCode+"Invalid Book's ID.Try Again!!"+ReuseThings.resetColorCode);
             borrow_book(books,allID);
         }else {
             for (Book book:books){
@@ -125,7 +125,7 @@ public class Functionalities {
                         header(5,Library.heaader_title);
                         book.display(book);
                         if (!book.isAvailable()){
-                            showMsg("This Book is Currently Unavailable");
+                            showMsg(ReuseThings.redColorCode+"This Book is Currently Unavailable"+ReuseThings.resetColorCode);
                             break;
                         }
                         System.out.print("=> Do you want to borrow this book ? [Y/N] : ");
@@ -148,7 +148,7 @@ public class Functionalities {
         System.out.print("=> Enter book's ID to return : ");
         String book_id = new Scanner(System.in).nextLine();
         if (!(new Library().regex_validate(book_id,"[0-9]+"))){
-            showMsg("Invalid Book's ID.Try Again!!");
+            showMsg(ReuseThings.redColorCode+"Invalid Book's ID.Try Again!!"+ReuseThings.resetColorCode);
             borrow_book(books,allID);
         }else {
             for (Book book:books){
@@ -157,14 +157,14 @@ public class Functionalities {
                         header(5,Library.heaader_title);
                         book.display(book);
                         if (book.isAvailable()){
-                            showMsg("This Book is Already Available");
+                            showMsg(ReuseThings.greenColorCode+"This Book is Already Available"+ReuseThings.resetColorGreen);
                             break;
                         }
                         System.out.print("=> Do you want to return this book ? [Y/N] : ");
                         String answer = new Scanner(System.in).nextLine();
                         if (answer.equalsIgnoreCase("Y")){
                             book.setAvailable(true);
-                            showMsg("Book ID "+ book_id+ " was return successfully");
+                            showMsg(ReuseThings.greenColorCode+"Book ID "+ book_id+ " was return successfully"+ReuseThings.resetColorGreen);
                         }
                         break;
                     }

@@ -42,23 +42,18 @@ public class Library {
         System.out.print("=> Enter Library's Address : ");
         lib_address = sc.nextLine();
         if (library_validate(lib_name, lib_address)){
-            System.out.println("\n---------------------------------------");
-            System.out.println("Please enter again the correct input form!!!");
-            System.out.println("Accept only character and number (A-Z,0-9) !!");
-            System.out.println("---------------------------------------\n");
+            new Functionalities().showMsg(ReuseThings.redColorCode+"Please enter again the correct input form!!! Accept only character and number (A-Z,0-9) !!"+ReuseThings.resetColorCode);
             inputLibraryInfo();
-
         }
         this.library_address = lib_address;
         this.library_name = lib_name;
 
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-
         String date_and_time = currentDateTime.format(formatter);
 
-        System.out.println("\""+this.getLibrary_name().toUpperCase(Locale.ROOT)+"\" Library is Already Created in" +
-                " \""+this.getLibrary_address().toUpperCase(Locale.ROOT)+"\" address successfully on "+ date_and_time);
+        new Functionalities().showMsg(ReuseThings.greenColorCode+"\""+this.getLibrary_name().toUpperCase(Locale.ROOT)+"\" Library is Already Created in" +
+                " \""+this.getLibrary_address().toUpperCase(Locale.ROOT)+"\" address successfully on "+ date_and_time+ReuseThings.resetColorGreen);
     }
     public boolean library_validate(String library_name,String library_address){
         if (Pattern.matches("[a-zA-Z0-9- ]+",library_name) && Pattern.matches("[a-zA-Z0-9- ]+",library_address))

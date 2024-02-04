@@ -1,6 +1,3 @@
-import org.nocrala.tools.texttablefmt.BorderStyle;
-import org.nocrala.tools.texttablefmt.ShownBorders;
-import org.nocrala.tools.texttablefmt.Table;
 
 import java.util.Scanner;
 
@@ -22,7 +19,7 @@ public class Main {
             System.out.print("=> Choose Option [1-6] : ");
             options_case = sc.nextLine();
             if (!lib.regex_validate(options_case,"[1-9]")){
-                fc.showMsg("Please enter the correct form!");
+                fc.showMsg(ReuseThings.redColorCode+"Please enter the correct form!"+ReuseThings.resetColorCode);
                 continue;
             }
 
